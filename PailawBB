@@ -1,0 +1,39 @@
+const int (PulangIlaw) = 12;  //nasa sundot dose
+const int (DilawIlaw) = 10; //nasa sundot diyes
+const int (BerdeIlaw = 8; //nasa sundot otso
+
+void setup() {
+  // put your setup code here, to run once:
+
+pinMode(PulangIlaw, OUTPUT);
+pinMode(DilawIlaw, OUTPUT);
+pinMode(BerdeIlaw, OUTPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+/* Buhay Pula */
+digitalWrite(PulangIlaw, HIGH);
+digitalWrite(DilawIlaw, LOW);
+digitalWrite(BerdeIlaw, LOW);
+delay (500); // medyo hinto para i-timing
+
+/* Buhay Dilaw */
+digitalWrite(PulangIlaw, LOW);
+digitalWrite(DilawIlaw, HIGH);
+digitalWrite(BerdeIlaw, LOW);
+delay (500); 
+
+/* Buhay Berde */
+digitalWrite(PulangIlaw, LOW);
+digitalWrite(DilawIlaw, LOW);
+digitalWrite(BerdeIlaw, HIGH);
+delay (500); 
+
+/* Dedz lahat */
+digitalWrite(PulangIlaw, LOW);
+digitalWrite(DilawIlaw, LOW);
+digitalWrite(BerdeIlaw, LOW);
+delay (500); 
+}
