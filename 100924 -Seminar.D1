@@ -33,7 +33,46 @@ APPLICATION OF ROBOTICS IN SSES AND STE
 A-Adopt to Changes
 I-Innovate
 
+---------------------
 
+BASIC ELECTRONICS
+
+Mechatronics - field of engineering that served as the backbone, allowing for the seamless integration of mechanical structures, 
+control systems, electrical components, and computational algorithms.
+
+An essestial foundation for the expected growth in automaation and manufacturing.
+
+Electrical Properties of Materials
+-Inductor
+-Conductor
+-Semiconductor
+
+Electrical Properties
+-Voltage: potential difference in a circuit. It is like potential energy or electricity through a circuit
+-Curent: push the electrons, the actual kinetic energy of electron
+-Resistance
+
+Passive Components:
+-Resistor
+-Inductor (Magnetic Field / Attenuate Energy)
+-LDR (Light Dependent Resistor)
+-Switch
+-Thermistor (Temperature Dependent Resistor)
+-Variable Resistor (or Potentiometer)
+-Capacitor (Storing Charge)
+-Transformer (StepUp/StepDown of Alternating Current)
+
+Active Components:
+>electrnic devices that actively control the floe of electrical signals and can provide switching, amplification, or signal processing functions.
+
+-Transistor
+-Integrated Circuit
+-Diode (foreard/reverse bias)
+-Light Emitting Diode (LED)
+-Operational Amplifier
+-Photodiode
+-Seven Segment Display
+-Battery
 
 
 
