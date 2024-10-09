@@ -77,7 +77,7 @@ Active Components:
 
 OHMS Law
 -States that the voltage accross a conductor is directly proportional to the current flowing through it.
-I=V/R
+I=V/R     V=IR
 
 SERIES Ciruit
 -has one current path
@@ -86,7 +86,7 @@ SERIES Ciruit
 
 
 PARALLEL
--morethan one current path (branch) connected to a common source
+-more than one current path (branch) connected to a common source
 -voltage across is the same because all components are connected across the same voltage source
 
 
