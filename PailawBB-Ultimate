@@ -1,0 +1,94 @@
+const int (PulangIlaw) = 12;  //nasa sundot dose
+const int (DilawIlaw) = 10; //nasa sundot diyes
+const int (BerdeIlaw) = 8; //nasa sundot otso
+const int (AsulIlaw) = 6; //nasa sundot sais
+const int (PutiIlaw) = 2; //nasa sundot dos
+
+void setup() {
+  // put your setup code here, to run once:
+
+pinMode(PulangIlaw, OUTPUT);
+pinMode(DilawIlaw, OUTPUT);
+pinMode(BerdeIlaw, OUTPUT);
+pinMode(AsulIlaw, OUTPUT);
+pinMode(PutiIlaw, OUTPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+/* Buhay Pula */
+digitalWrite(PulangIlaw, HIGH);
+digitalWrite(DilawIlaw, LOW);
+digitalWrite(BerdeIlaw, LOW);
+digitalWrite(AsulIlaw, LOW);
+digitalWrite(PutiIlaw, LOW);
+delay (500); // medyo hinto para i-timing
+
+/* Buhay Dilaw */
+digitalWrite(PulangIlaw, LOW);
+digitalWrite(DilawIlaw, HIGH);
+digitalWrite(BerdeIlaw, LOW);
+digitalWrite(AsulIlaw, LOW);
+digitalWrite(PutiIlaw, LOW);
+delay (500); 
+
+/* Buhay Berde */
+digitalWrite(PulangIlaw, LOW);
+digitalWrite(DilawIlaw, LOW);
+digitalWrite(BerdeIlaw, HIGH);
+digitalWrite(AsulIlaw, LOW);
+digitalWrite(PutiIlaw, LOW);
+delay (500); 
+
+/* Buhay Asul */
+digitalWrite(PulangIlaw, LOW);
+digitalWrite(DilawIlaw, LOW);
+digitalWrite(BerdeIlaw, LOW);
+digitalWrite(AsulIlaw, HIGH);
+digitalWrite(PutiIlaw, LOW);
+delay (500); 
+
+
+
+/* Buhay Puti*/
+digitalWrite(PulangIlaw, LOW);
+digitalWrite(DilawIlaw, LOW);
+digitalWrite(BerdeIlaw, LOW);
+digitalWrite(AsulIlaw, LOW);
+digitalWrite(PutiIlaw, HIGH);
+delay (500); 
+
+
+
+
+
+//delete below when sheep happens
+
+/* Buhay Asul */
+digitalWrite(PulangIlaw, LOW);
+digitalWrite(DilawIlaw, LOW);
+digitalWrite(BerdeIlaw, LOW);
+digitalWrite(AsulIlaw, HIGH);
+digitalWrite(PutiIlaw, LOW);
+delay (500); 
+
+
+
+/* Buhay Berde */
+digitalWrite(PulangIlaw, LOW);
+digitalWrite(DilawIlaw, LOW);
+digitalWrite(BerdeIlaw, HIGH);
+digitalWrite(AsulIlaw, LOW);
+digitalWrite(PutiIlaw, LOW);
+delay (500); 
+
+/* Buhay Dilaw */
+digitalWrite(PulangIlaw, LOW);
+digitalWrite(DilawIlaw, HIGH);
+digitalWrite(BerdeIlaw, LOW);
+digitalWrite(AsulIlaw, LOW);
+digitalWrite(PutiIlaw, LOW);
+delay (500); 
+
+}
