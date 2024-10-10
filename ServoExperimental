@@ -1,0 +1,37 @@
+// Testing lang ng de-motor
+
+#include <Servo.h>
+
+int pos = 0; //for setting position
+Servo MyServo; //Instancing
+
+void setup()
+{
+  Serial.begin(9600);
+  
+  //Prepare servo motor to [pin 9, 
+  MyServo.attach(9, 500, 2500);
+}
+
+void loop()
+{
+  /* thru iteration, sweep the servo from 0 to 180 degrees 
+     in steps of 1 degrees */
+  for (pos = 0; pos <= 180; pos += 1) {
+    
+    // tell servo to go to position in variable 'pos'
+    MyServo.write(pos);
+    
+    Serial.println(pos); // Monitors the current position
+    
+    // wait 15ms for servo to reach the position
+    delay(1); // Wait for 15ms
+  }
+  
+  //Reverse Motion 
+  for (pos = 180; pos >= 0; pos -= 1) {
+      MyServo.write(pos);
+      Serial.println(pos);
+     delay(1);
+  }
+}
