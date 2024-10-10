@@ -12,7 +12,7 @@ pinMode(ldrPin, INPUT);      // LDR Sensor pin si A0 (analog)
 void loop() {
 int estado = analogRead(ldrPin);   //babasahin ang value ni LDR Sensor
 
-  if (estado <=500) {       //Sindihan
+  if (estado <=999) {       //Sindihan
 	  digitalWrite(ilawPIN, HIGH);
 	  Serial.println("LDR Value "+ String(estado)+ " MALIWANAG, LED is ON");   //display ang value sa Serial Monitor
 	}
@@ -23,3 +23,71 @@ int estado = analogRead(ldrPin);   //babasahin ang value ni LDR Sensor
     Serial.println("LDR Value "+ String(estado)+ " MADILIM, LED: OFF");
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*  balik this code kung sheep happens
+
+const int ilawPIN = 13;
+const int ldrPin = A0;
+
+void setup() {
+Serial.begin(9600);
+
+pinMode(ilawPIN, OUTPUT);
+pinMode(ldrPin, INPUT);
+
+}
+
+void loop() {
+int estado = analogRead(ldrPin);
+
+  if (estado <=1000) { 
+  digitalWrite(ilawPIN, HIGH);
+  Serial.println("LDR Value "+ String(estado)+ " MALIWANAG, LED is ON");
+  }
+
+
+  else {
+
+  digitalWrite(ilawPIN, LOW);
+    Serial.println("LDR Value "+ String(estado)+ " MADILIM, LED: OFF");
+  }
+}
+
+*/
