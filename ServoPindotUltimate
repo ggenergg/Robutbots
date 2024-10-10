@@ -1,0 +1,47 @@
+// Servo motor na may control.
+// At the start, the servo motor will always calibrate
+// sa 90 deg. position kung walang initial pos = 0 variable.
+
+
+#define RBUTTON_PIN 8
+#define LBUTTON_PIN 12
+
+#include <Servo.h> //To enable Servo Functions
+
+Servo iServoMo; //Instancing
+
+void setup()
+{
+  Serial.begin(9600);
+  
+  //Prepare servo motor Pulse Width Modulation to pin3
+  iServoMo.attach(3, 500, 2500);
+  
+  //Initialize mga buttons
+  pinMode(RBUTTON_PIN, INPUT_PULLUP); 
+  pinMode(LBUTTON_PIN, INPUT_PULLUP); 
+}
+
+void loop()
+{
+  
+    //basahin ang estado ng mga pindutan kung naka-pindot
+  byte RbuttonState = digitalRead(RBUTTON_PIN);
+  byte LbuttonState = digitalRead(LBUTTON_PIN);
+  
+  	//pindot kanan
+ if (RbuttonState == LOW) {
+  	     iServoMo.write(1); //set sa 1 deg. position      
+       } 
+  
+    //pindot kaliwa
+ else if (LbuttonState == LOW){
+      iServoMo.write(179); //set sa 179 deg. position 
+     }
+   
+    //walang pindot... reset position
+ else{
+      iServoMo.write(90);
+  }
+  
+}
