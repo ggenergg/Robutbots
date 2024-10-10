@@ -1,0 +1,25 @@
+const int ilawPIN = 13;
+const int ldrPin = A0;
+
+void setup() {
+Serial.begin(9600);  //typical na bps kapag magko-console as mostly experienced ko sa CISCO Networking
+
+pinMode(ilawPIN, OUTPUT);    // ilawPIN si 13
+pinMode(ldrPin, INPUT);      // LDR Sensor pin si A0 (analog)
+
+}
+
+void loop() {
+int estado = analogRead(ldrPin);   //babasahin ang value ni LDR Sensor
+
+  if (estado <=500) {       //Sindihan
+	  digitalWrite(ilawPIN, HIGH);
+	  Serial.println("LDR Value "+ String(estado)+ " MALIWANAG, LED is ON");   //display ang value sa Serial Monitor
+	}
+
+
+	else {                  //Dedz
+ 	  digitalWrite(ilawPIN, LOW);
+    Serial.println("LDR Value "+ String(estado)+ " MADILIM, LED: OFF");
+	}
+}
