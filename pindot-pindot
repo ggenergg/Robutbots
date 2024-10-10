@@ -1,0 +1,109 @@
+//SIMPLE
+
+#define RBUTTON_PIN 4  
+#define LBUTTON_PIN 8
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(RBUTTON_PIN, INPUT_PULLUP);  //initialize kay kanang button
+  pinMode(LBUTTON_PIN, INPUT_PULLUP);  //initialize kay kaliwang button
+}
+
+void loop()
+{
+  byte RbuttonState = digitalRead(RBUTTON_PIN);
+  byte LbuttonState = digitalRead(LBUTTON_PIN);
+  
+   
+  if (RbuttonState == LOW) {
+      Serial.println("RButton is pressed");
+  }
+  else if (LbuttonState == LOW){
+      Serial.println("LButton is pressed");
+  }
+  
+  else {
+    Serial.println("Nothing is pressed");
+  }
+  delay(100);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//MAS PANGMALAKASAN
+
+#define RBUTTON_PIN 4
+#define LBUTTON_PIN 8
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(RBUTTON_PIN, INPUT_PULLUP); //i-set kanang pindutan kay pin4
+  pinMode(LBUTTON_PIN, INPUT_PULLUP); //i-set kaliwang pindutan kay pin4
+}
+
+void loop()
+{
+  //basahin ang estado ng mga pindutan kung naka-pindot
+  byte RbuttonState = digitalRead(RBUTTON_PIN);
+  byte LbuttonState = digitalRead(LBUTTON_PIN);
+  
+   
+  if (RbuttonState == LOW) {
+      Serial.println("RButton pressed");
+       }
+  
+  else if (LbuttonState == LOW){
+      Serial.println("LButton pressed");
+      } 
+  
+  else {
+    Serial.println("Nothing pressed");
+    }
+  
+  //byte value reveal (L R) 0=pindot 1=hindi_pindot
+  Serial.println(String(LbuttonState) + " " + String(RbuttonState));
+  
+  delay(200); //pang-timing bago umulit
+}
