@@ -107,3 +107,60 @@ void loop()
   
   delay(200); //pang-timing bago umulit
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//EXTRA PANGMALAKASAN...   Ilaw Add-ons (need si BB and LEDs)
+
+/* 
+
+Lagay sa pinka-top para ipakilala ang pins pang-ilaw:
+
+const int (PulangIlaw) = 9;  //nasa sundot dose
+const int (DilawIlaw) = 5; //nasa sundot diyes
+
+
+Lagay kay Setup():
+pinMode(PulangIlaw, OUTPUT);
+pinMode(DilawIlaw, OUTPUT);
+
+
+
+Lagay sa main function [Loop()]
+
+Pang Kaliwa:
+digitalWrite(PulangIlaw, HIGH);
+digitalWrite(DilawIlaw, LOW);
+
+
+
+Pang Kanan:
+digitalWrite(PulangIlaw, LOW);
+digitalWrite(DilawIlaw, HIGH);
+
+Walang pindor
+digitalWrite(PulangIlaw, LOW);
+digitalWrite(DilawIlaw, LOW);
+
+
+
+
+
+
+*/
