@@ -1,16 +1,23 @@
-const int ilawPIN = 13;
-const int ldrPin = A0;
+/* 
+LIGHT SENSING
+-patay LED pag madilim
+-buhay LED pag maliwanag
+*/
+
+
+const int ilawPIN = 13;   //LED Anode+ sa DigiIO
+const int ldrPin = A0;    //Isang dulo ni LDR na may nakapagitan between 5V+ tska 1K Resistor
 
 void setup() {
-Serial.begin(9600);  //typical na bps kapag magko-console as mostly experienced ko sa CISCO Networking
+Serial.begin(9600);  //Basahin ang mindset ni UNO thru Serial Monitor para makasundo kapag may tweaks
 
 pinMode(ilawPIN, OUTPUT);    // ilawPIN si 13
-pinMode(ldrPin, INPUT);      // LDR Sensor pin si A0 (analog)
+pinMode(ldrPin, INPUT);      // LDR Sensor pin si A0 (analog papasok)
 
 }
 
 void loop() {
-int estado = analogRead(ldrPin);   //babasahin ang value ni LDR Sensor
+int estado = analogRead(ldrPin);   //babasahin ang value ni LDR Sensor kung gaano kaliwanag or kadilim
 
   if (estado <=999) {       //Sindihan
 	  digitalWrite(ilawPIN, HIGH);
@@ -20,7 +27,7 @@ int estado = analogRead(ldrPin);   //babasahin ang value ni LDR Sensor
 
 	else {                  //Dedz
  	  digitalWrite(ilawPIN, LOW);
-    Serial.println("LDR Value "+ String(estado)+ " MADILIM, LED: OFF");
+    Serial.println("LDR Value "+ String(estado)+ " MADILIM, LED is OFF");
 	}
 }
 
