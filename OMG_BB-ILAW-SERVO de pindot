@@ -1,0 +1,213 @@
+/* Ginamit sa pa-Tournament (kuno) sa NNHS, Servo Motor na may Ilaw, controlled by buttons. OMG !!!
+
+#include <Servo.h>
+
+//assign buttons sa pins
+#define LBUTTON_PIN 2
+#define RBUTTON_PIN 3
+#define UBUTTON_PIN 4
+#define DBUTTON_PIN 5
+
+//assign ilaw sa pins
+const int (LeftIlaw) = 8;  
+const int (RightIlaw) = 9;
+const int (TaasIlaw) = 10;  
+const int (BabaIlaw) = 11;
+
+Servo iServoMo; //Instancing, meaning si "Servo" ayaw pagamit gusto sa iba iuutos which is kay "iServoMo"
+
+void setup()
+{
+  Serial.begin(9600);                  // pang-monitor lang kung gumagana ang pindot
+  iServoMo.attach(6, 500, 2500);        // ipaubaya kay pin 6 ang PWM signaling ni Servo
+  pinMode(LBUTTON_PIN, INPUT_PULLUP); //i-set kanang pindutan kay pin1
+  pinMode(RBUTTON_PIN, INPUT_PULLUP); //i-set kaliwang pindutan kay pin2
+  pinMode(UBUTTON_PIN, INPUT_PULLUP); //i-set kanang pindutan kay pin3
+  pinMode(DBUTTON_PIN, INPUT_PULLUP); //i-set kaliwang pindutan kay pin4
+
+
+  //Mag-fee-feeling Calibration (tila umiinat) kapag sinindihan.
+  delay(1000);
+  iServoMo.write(45);
+    delay(1000);
+  iServoMo.write(135);
+  delay(1000);
+
+}
+
+void loop()
+{
+  //basahin ang estado ng mga pindutan kung naka-pindot
+  byte LbuttonState = digitalRead(LBUTTON_PIN);
+  byte RbuttonState = digitalRead(RBUTTON_PIN);
+  byte UbuttonState = digitalRead(UBUTTON_PIN);
+  byte DbuttonState = digitalRead(DBUTTON_PIN);
+  
+   
+  if (LbuttonState == LOW) {
+      Serial.println("Kaliwa pressed");
+    	    	//Pang Kaliwa ilaw:
+    	digitalWrite(LeftIlaw, HIGH);
+		digitalWrite(RightIlaw, LOW);
+    	digitalWrite(TaasIlaw, LOW);
+		digitalWrite(BabaIlaw, LOW);
+		iServoMo.write(179);
+       }
+  
+  else if (RbuttonState == LOW){
+      Serial.println("Kanan pressed");
+    
+    	//Pang Kanan ilaw:
+	    digitalWrite(LeftIlaw, LOW);
+		digitalWrite(RightIlaw, HIGH);
+    	digitalWrite(TaasIlaw, LOW);
+		digitalWrite(BabaIlaw, LOW);
+    	iServoMo.write(1);
+  		}
+    
+  else if (UbuttonState == LOW) {
+      Serial.println("Taas pressed");
+    	    	//Pang taas ilaw:
+		digitalWrite(LeftIlaw, LOW);
+		digitalWrite(RightIlaw, LOW);
+    	digitalWrite(TaasIlaw, HIGH);
+		digitalWrite(BabaIlaw, LOW);
+    	iServoMo.write(90);
+
+       }
+  
+  else if (DbuttonState == LOW){
+      Serial.println("Baba pressed");
+    
+    	//Pang baba ilaw:
+		digitalWrite(LeftIlaw, LOW);
+		digitalWrite(RightIlaw, LOW);
+    	digitalWrite(TaasIlaw, LOW);
+		digitalWrite(BabaIlaw, HIGH);
+    
+      iServoMo.write(135);
+       delay(1000);
+      iServoMo.write(45);
+       delay(1000);
+  
+       } 
+
+
+// Optional, tanggalin sa comment kung gusto mo mag-sway-sway si Servo kapag walang pinipindot at lights off.
+/*  else {
+    Serial.println("Walang pressed");
+    	digitalWrite(LeftIlaw, LOW);
+		digitalWrite(RightIlaw, LOW);
+    	digitalWrite(TaasIlaw, LOW);
+		digitalWrite(BabaIlaw, LOW);
+
+        iServoMo.write(1);
+       delay(2000);
+      iServoMo.write(179);
+       delay(2000);
+
+	    } */
+  
+  // byte value reveal (L R) 0 (or LOW)=pindot 1(or HIGH)=hindi_pindot
+ // Serial.println(String(LbuttonState) + " " + String(RbuttonState));
+  
+ delay(100); //pang-timing bago umulit
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Ilaw Add-ons (need si BB and LEDs)
+
+/* 
+
+Lagay sa pinka-top para ipakilala ang pins pang-ilaw:
+
+const int (PulangIlaw) = 9;  //nasa sundot dose
+const int (DilawIlaw) = 5; //nasa sundot diyes
+
+
+Lagay kay Setup():
+pinMode(PulangIlaw, OUTPUT);
+pinMode(DilawIlaw, OUTPUT);
+
+
+
+Lagay sa main function [Loop()]
+
+Pang Kaliwa:
+digitalWrite(PulangIlaw, HIGH);
+digitalWrite(DilawIlaw, LOW);
+
+
+
+Pang Kanan:
+digitalWrite(PulangIlaw, LOW);
+digitalWrite(DilawIlaw, HIGH);
+
+Walang pindo
+digitalWrite(PulangIlaw, LOW);
+digitalWrite(DilawIlaw, LOW);
+
+
+
+
+
+
+*/
