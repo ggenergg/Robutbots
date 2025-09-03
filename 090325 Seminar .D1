@@ -13,6 +13,19 @@ Simulator - https://fuse.littlebits.com/builder
 
 ADVANCE ARDUINO DEVELOPMENT:
 
+(review the basic overview of Arduino Board)
+
+int echoPin = 11; // PWM port 11
+int trigPin = 12; // Trigger port 12 Digital
+
+int motor1pin1 = 2;   //LEFT_M 2
+int motor1pin2 = 3;   //LEFT_M 3
+int motor1pin3 = 6;   //LEFT_M_SPEED 6
+
+
+int motor2pin1 = 4;   //RIGHT_M 4
+int motor2pin2 = 10;   //RIGHT_M 10
+int motor2pin3 = 5;   //RIGHT_M_SPEED 5
 
 
 
