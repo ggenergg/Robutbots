@@ -1,0 +1,141 @@
+(description to be add later on)
+
+iring Diagram (Description)
+
+LEDs
+
+Yellow LED → Pin 2 (through 220Ω resistor)
+
+Red LED → Pin 3 (through 220Ω resistor)
+
+Green LED → Pin 4 (through 220Ω resistor)
+
+Ultrasonic Sensor (HC-SR04)
+
+VCC → 5V
+
+GND → GND
+
+Trig → Pin 5
+
+Echo → Pin 6
+
+
+
+
+Water Sensor
+
+VCC → 5V
+
+GND → GND
+
+OUT/Analog → A0
+
+
+Servo Motor
+
+VCC → 5V
+
+GND → GND
+
+Signal → Pin 9
+
+
+
+
+
+
+
+
+
+#include <Servo.h>
+
+Servo iServoMo;
+
+// Pin setup sa mga LEDS
+const int yellowLED = 2;
+const int redLED = 3;
+const int greenLED = 4;
+
+// Pin Setup para maramdaman si UltraSonic
+const int trigPin = 5;
+const int echoPin = 6;
+
+// Pin Setup para tumantsa ng tubig in Analog (bandang baba)
+const int waterSensor = A0; // Analog pin for water sensor
+
+//Set Variables
+int distance;
+int waterValue;
+
+void setup() {
+
+  //initialize LED pins
+  pinMode(yellowLED, OUTPUT);
+  pinMode(redLED, OUTPUT);
+  pinMode(greenLED, OUTPUT);
+
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+
+  iServoMo.attach(9);
+
+  // Initial state para iayos ang paunang ilaw
+  digitalWrite(yellowLED, HIGH); // System ON indicator
+  digitalWrite(redLED, LOW);
+  digitalWrite(greenLED, LOW);
+
+  iServoMo.write(90); // Neutral position ng Servo
+
+  Serial.begin(9600);  //Read UNO's mind
+}
+
+// Function to get ultrasonic distance
+long getDistance() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  long duration = pulseIn(echoPin, HIGH);
+  return duration * 0.034 / 2; // convert to cm
+}
+
+void loop() {
+  distance = getDistance();
+  waterValue = analogRead(waterSensor);
+
+  Serial.print("\nDistance: ");
+  Serial.print(distance);
+  Serial.print(" cm | Water: ");
+  Serial.print(waterValue);
+
+
+  // Reset LEDs
+  digitalWrite(redLED, LOW);
+  digitalWrite(greenLED, LOW);
+
+  // Condition: Object detected by ultrasonic
+  if (distance > 0 && distance < 15) { // adjust threshold (15 cm)
+
+    if (waterValue < 300) { 
+      // 2. Dry trash (no water detected)
+      iServoMo.write(0); // Servo left
+      Serial.println(" | Status: DRY");
+      digitalWrite(redLED, HIGH);
+
+    } else {
+      // 3. Wet trash (water detected)
+      iServoMo.write(180); // Servo right
+      Serial.println(" | Status: WET");
+      digitalWrite(greenLED, HIGH);
+    }
+    delay(500); // Wait before resetting
+    iServoMo.write(90); // Reset to center
+    
+  
+  }
+
+  delay(500);
+}
