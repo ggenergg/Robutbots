@@ -1,0 +1,58 @@
+const int soundSensorPin = A0; // Analog pin connected to the sensor
+const int ledPin = 4; // LED pin
+
+
+unsigned long lastReadTime = 0;
+const unsigned long readInterval = 10; // 10ms between readings
+
+// LED timing variables
+unsigned long ledTurnedOnTime = 0;
+const unsigned long ledOnDuration = 2000; // 2 seconds = 2000ms
+bool ledActive = false; // Track if LED is in "on" state
+
+void setup() {
+  Serial.begin(9600); // Initialize serial communication
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW);
+}
+
+void loop() {
+  unsigned long currentMillis = millis();
+  
+  // Check if it's time to take a reading (every 10ms)
+  if (currentMillis - lastReadTime >= readInterval) {
+    lastReadTime = currentMillis; // Update the last read time
+    
+    // Take sensor reading
+    int soundValue = analogRead(soundSensorPin);
+    Serial.println(soundValue); // Print the value to the Serial Monitor
+    
+    // Check if sound exceeds threshold
+    if (soundValue > 300) {
+      // Sound detected - turn LED on and record the time
+      digitalWrite(ledPin, HIGH);
+      ledTurnedOnTime = currentMillis;
+      ledActive = true;
+    }
+  }
+  
+  // Check if it's time to turn the LED off (2 seconds after last trigger)
+  if (ledActive && (currentMillis - ledTurnedOnTime >= ledOnDuration)) {
+    digitalWrite(ledPin, LOW);
+    ledActive = false;
+  }
+  
+  // You can add other code here that runs immediately
+}
+
+
+
+/*
+D4 = LED+
+A0 = sound sensor A0
+D2 = sound sensor D2
+D4 = buzzer +
+*GND*
+*/
+
+
