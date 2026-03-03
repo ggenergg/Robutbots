@@ -1,0 +1,219 @@
+\\A
+
+#include <LiquidCrystal_I2C.h>
+
+const int soundSensorPin = A0; // Analog pin connected to the sensor
+const int ledPin = 4; // LED pin
+
+unsigned long lastReadTime = 0;
+const unsigned long readInterval = 10; // 10ms between readings
+
+// LED timing variables
+unsigned long ledTurnedOnTime = 0;
+const unsigned long ledOnDuration = 2000; // 2 seconds = 2000ms
+bool ledActive = false; // Track if LED is in "on" state
+
+LiquidCrystal_I2C lcd(0x27, 16,2); // I2C address 0x27
+
+void setup() {
+  Serial.begin(9600); // Initialize serial communication
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW);
+  
+  lcd.init(); // initialize the lcd
+  lcd.backlight();
+  lcd.setCursor(0,0);
+  lcd.print("Sound Monitor");
+  lcd.setCursor(0,1);
+  lcd.print("Init...");
+  delay(1000);
+}
+
+void loop() {
+  unsigned long currentMillis = millis();
+
+  // Check if it's time to take a reading (every 10ms)
+  if (currentMillis - lastReadTime >= readInterval) {
+    lastReadTime = currentMillis; // Update the last read time
+    
+    // Take sensor reading
+    int soundValue = analogRead(soundSensorPin);
+    Serial.println(soundValue); // Print to Serial Monitor
+    
+    // Update LCD with current reading
+    updateLCD(soundValue, ledActive);
+    
+    // Check if sound exceeds threshold
+    if (soundValue > 300) {
+      // Sound detected - turn LED on and record the time
+      digitalWrite(ledPin, HIGH);
+      ledTurnedOnTime = currentMillis;
+      ledActive = true;
+    }
+  }
+  
+  // Check if it's time to turn the LED off (2 seconds after last trigger)
+  if (ledActive && (currentMillis - ledTurnedOnTime >= ledOnDuration)) {
+    digitalWrite(ledPin, LOW);
+    ledActive = false;
+  }
+}
+
+void updateLCD(int soundValue, bool ledState) {
+  lcd.setCursor(0, 0);
+  lcd.print("Sound: ");
+  lcd.print(soundValue);
+  lcd.print("   "); // Clear any leftover characters
+  
+  lcd.setCursor(0, 1);
+  lcd.print("METER: ");
+  if (ledState) {
+    lcd.print("!!!");
+  } else {
+    lcd.print(":o");
+  }
+  
+  // Add a simple bar graph on the second line
+  int barLength = map(soundValue, 0, 1023, 0, 8); // Map to 0-8 bars
+  lcd.setCursor(8, 1); // Start position after "METER: :o" (positions 0-7)
+  
+  // Clear the bar area first (positions 8-15)
+  lcd.print("        "); // 8 spaces
+  
+  // Then draw the bar using '=' characters
+  lcd.setCursor(8, 1);
+  for (int i = 0; i < barLength; i++) {
+    lcd.print("="); // Print equals sign for the bar
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// B
+const int soundSensorPin = A0; // Analog pin connected to the sensor
+const int ledPin = 4; // LED pin
+
+// Calibration variables
+int noiseFloor = 0; // Baseline ambient noise level
+int threshold = 0; // Dynamic threshold (noise floor + margin)
+const int margin = 50; // How much above noise floor to trigger
+const int numCalibrationSamples = 50; // Number of samples for calibration
+
+unsigned long lastReadTime = 0;
+const unsigned long readInterval = 10; // 10ms between readings
+
+// LED timing variables
+unsigned long ledTurnedOnTime = 0;
+const unsigned long ledOnDuration = 2000; // 2 seconds = 2000ms
+bool ledActive = false;
+
+// For peak detection
+int peakValue = 0;
+unsigned long lastPeakTime = 0;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW);
+  
+  Serial.println("Calibrating sensor...");
+  calibrateSensor();
+  Serial.print("Calibration complete. Noise floor: ");
+  Serial.print(noiseFloor);
+  Serial.print(" | Threshold: ");
+  Serial.println(threshold);
+}
+
+void loop() {
+  unsigned long currentMillis = millis();
+  
+  // Check if it's time to take a reading (every 10ms)
+  if (currentMillis - lastReadTime >= readInterval) {
+    lastReadTime = currentMillis;
+    
+    // Take sensor reading
+    int soundValue = analogRead(soundSensorPin);
+    
+    // Track peak value
+    if (soundValue > peakValue) {
+      peakValue = soundValue;
+      lastPeakTime = currentMillis;
+    }
+    
+    // Print values occasionally (every 500ms to avoid spam)
+    static unsigned long lastPrintTime = 0;
+    if (currentMillis - lastPrintTime >= 500) {
+      lastPrintTime = currentMillis;
+      Serial.print("Current: ");
+      Serial.print(soundValue);
+      Serial.print(" | Peak: ");
+      Serial.print(peakValue);
+      Serial.print(" | Noise floor: ");
+      Serial.print(noiseFloor);
+      Serial.print(" | Threshold: ");
+      Serial.println(threshold);
+    }
+    
+    // Check if sound exceeds dynamic threshold
+    if (soundValue > threshold) {
+      // Sound detected - turn LED on and record the time
+      digitalWrite(ledPin, HIGH);
+      ledTurnedOnTime = currentMillis;
+      ledActive = true;
+      
+      // Optional: Print detection event
+      Serial.print("SOUND DETECTED! Value: ");
+      Serial.println(soundValue);
+    }
+    
+    // Reset peak if no new peaks for 1 second
+    if (currentMillis - lastPeakTime > 1000) {
+      peakValue = noiseFloor;
+    }
+  }
+  
+  // Check if it's time to turn the LED off (2 seconds after last trigger)
+  if (ledActive && (currentMillis - ledTurnedOnTime >= ledOnDuration)) {
+    digitalWrite(ledPin, LOW);
+    ledActive = false;
+  }
+}
+
+void calibrateSensor() {
+  // Take multiple readings to establish noise floor
+  long sum = 0;
+  
+  for (int i = 0; i < numCalibrationSamples; i++) {
+    sum += analogRead(soundSensorPin);
+    delay(10); // Small delay between samples (okay during setup)
+  }
+  
+  // Calculate average noise floor
+  noiseFloor = sum / numCalibrationSamples;
+  
+  // Set threshold above noise floor
+  threshold = noiseFloor + margin;
+  
+  // Ensure threshold is at least 300 (your original value) but not too high
+  if (threshold < 300) {
+    threshold = 300;
+  }
+}
+
