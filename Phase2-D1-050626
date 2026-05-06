@@ -106,3 +106,29 @@ tinyurl.com/5n8wdk8t
 
 
 
+============================
+
+INTERMEDIATE ROBOTICS
+-bridges the gap between basic programming and advanced robotics systems, it emphasizes the integration of sensors for environmental perception,
+microsocontrollers for processing and coding for functionality, enabling the creation of sophisticated robotic systems.
+
+
+Understanding Sensors
+
+Types:
+-Proximity: Object Detection
+-Light: Intensity measurement
+-Temperature: Change monitoring
+-Accelerometer: Speed
+
+PL used for Robotics
+-C++ (Micro-controller standard)
+-Python (Versatile and Easy)
+-Java (Frameworks)
+
+Data Processing
+-BAsed on processed data, the robot initiates movements and responses
+
+Industrial Automation
+-Employ Robots equipped with various sensors and microcontrollers to streamline manufacturing processes, increasing productivity and precision in tasks.
+
