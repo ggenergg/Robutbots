@@ -12,7 +12,7 @@ Example of Robot Kits
 -Arduino
 -ESP32
 
-Core Principle *IPO)
+Core Principle (IPO)
 Input - Sensors Gathering Data
 Process - Controller decides what to do
 Output - Actuators perform the action
@@ -22,5 +22,15 @@ Key Concepts
 -Conditionals (IF-ELSEIF-ELSE)
 -Loops - Repeat Actions
 -Variables - Store Information
+
+Online Simulators
+-TinkerCAD
+-WokWi
+-LittleBits Fuse
+-PiForge (Robotics + Electronics Lab)
+-FreeCircuitSim (Circuit Fundamentals)
+-Enhanced Diode (Advanced Electronics + Arduino)
+-VEXcode VR
+
 
 
