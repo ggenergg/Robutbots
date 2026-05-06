@@ -10,5 +10,17 @@ Example of Robot Kits
 -Lego EV3
 -LEgo Spike Prime
 -Arduino
+-ESP32
+
+Core Principle *IPO)
+Input - Sensors Gathering Data
+Process - Controller decides what to do
+Output - Actuators perform the action
+
+Key Concepts
+-Sequence - Step-by-Step instruction (algorithm)
+-Conditionals (IF-ELSEIF-ELSE)
+-Loops - Repeat Actions
+-Variables - Store Information
 
 
