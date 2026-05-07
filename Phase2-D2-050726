@@ -58,3 +58,7 @@ Designing Robotics for Experiments
 -Develop Software
 -TEst and Iterate
 
+PArts of Robot
+-Sensing Unit (Sensors like IR, Sound, Temp, Ultrasonic, etc.)
+-Controller Unit (Microcontrollers like Arduino)
+-Actiator (Commonly DC Motors like Server, Stepper Motor)
