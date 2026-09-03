@@ -1,0 +1,85 @@
+/*    Ultrasonic Pins
+
+VCC		5V
+GND		GND
+TRIG	Digital Pin 9
+ECHO	Digital Pin 10
+
+*/
+
+
+/*    LCD I2C Pins
+
+VCC		5V
+GND		GND
+SDA	  A4
+SCL  A5
+
+*/
+
+
+const int trigPin = 9;
+const int echoPin = 10;
+const int relayPin = 7;
+
+
+long duration;
+float distance;
+
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+// LCD address: 0x27, 16 columns, 2 rows
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+  lcd.init();              // Initialize the LCD
+  lcd.backlight();         // Turn on LCD backlight
+  
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(relayPin, OUTPUT);
+}
+
+void loop() {
+  // Make sure the Trigger pin is LOW
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+
+  // Send a 10-microsecond ultrasonic pulse
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  // Read the time taken by the echo
+  duration = pulseIn(echoPin, HIGH);
+
+  // Calculate distance in centimeters
+  distance = (duration * 0.0343) / 2;
+    
+
+  // Ilitaw ang mga distance values
+  lcd.setCursor(0, 0);     // Column 0, Row 0
+  lcd.print("Distance: ");
+
+ lcd.setCursor(0, 1);     // Column 0, Row 1
+ lcd.print("                ");    //linis 2nd line muna bago mag-display
+
+ lcd.setCursor(0, 1);     // Column 0, Row 1
+ lcd.print(distance);              //labas raw value ng distance.
+ lcd.print(" cm.");
+  
+    
+   if (distance<4){
+    digitalWrite(relayPin, HIGH);  // Turn Relay Pump ON
+      }
+  
+  
+   else if (distance>=10){
+    digitalWrite(relayPin, LOW);  // Turn Relay Pump Off
+   }
+
+  delay(250);
+}
+
+
